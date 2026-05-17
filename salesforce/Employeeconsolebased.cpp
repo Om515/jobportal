@@ -1,8 +1,6 @@
 public class Employee {
 
-    // =========================
     // ADD EMPLOYEE
-    // =========================
     public static void addEmployee(
         String name,
         String email,
@@ -12,18 +10,12 @@ public class Employee {
 
         Employee__c emp = new Employee__c(
 
-            // CHANGED:
-            // OLD API NAME  -> Emp_Name__c
-            // NEW API NAME  -> Employee_Name__c
             Employee_Name__c = name,
 
-            // SAME API NAME
             Email__c = email,
 
-            // SAME API NAME
             Birth_Date__c = birthDate,
 
-            // SAME API NAME
             Department__c = dept
         );
 
@@ -32,32 +24,21 @@ public class Employee {
         System.debug('Employee Added Successfully!');
     }
 
-    // =========================
     // VIEW EMPLOYEES
-    // =========================
     public static void viewEmployees() {
 
         List<Employee__c> empList = [
 
             SELECT
 
-                // CHANGED:
-                // OLD API NAME -> Emp_ID__c
-                // NEW API NAME -> Employee_ID__c
                 Employee_ID__c,
 
-                // CHANGED:
-                // OLD API NAME -> Emp_Name__c
-                // NEW API NAME -> Employee_Name__c
                 Employee_Name__c,
 
-                // SAME API NAME
                 Email__c,
 
-                // SAME API NAME
                 Birth_Date__c,
 
-                // SAME API NAME
                 Department__c
 
             FROM Employee__c
@@ -67,31 +48,20 @@ public class Employee {
 
             System.debug(
 
-                // CHANGED:
-                // OLD -> e.Emp_ID__c
-                // NEW -> e.Employee_ID__c
                 'ID: ' + e.Employee_ID__c +
 
-                // CHANGED:
-                // OLD -> e.Emp_Name__c
-                // NEW -> e.Employee_Name__c
                 ' | Name: ' + e.Employee_Name__c +
 
-                // SAME
                 ' | Email: ' + e.Email__c +
 
-                // SAME
                 ' | DOB: ' + e.Birth_Date__c +
 
-                // SAME
                 ' | Dept: ' + e.Department__c
             );
         }
     }
 
-    // =========================
     // UPDATE EMPLOYEE
-    // =========================
     public static void updateEmployee(
         String empId,
         String newDept
@@ -105,9 +75,6 @@ public class Employee {
 
             FROM Employee__c
 
-            // CHANGED:
-            // OLD API NAME -> Emp_ID__c
-            // NEW API NAME -> Employee_ID__c
             WHERE Employee_ID__c = :empId
 
             LIMIT 1
@@ -127,9 +94,7 @@ public class Employee {
         }
     }
 
-    // =========================
     // DELETE EMPLOYEE
-    // =========================
     public static void deleteEmployee(String empId) {
 
         List<Employee__c> empList = [
@@ -138,9 +103,6 @@ public class Employee {
 
             FROM Employee__c
 
-            // CHANGED:
-            // OLD API NAME -> Emp_ID__c
-            // NEW API NAME -> Employee_ID__c
             WHERE Employee_ID__c = :empId
 
             LIMIT 1
@@ -158,9 +120,7 @@ public class Employee {
         }
     }
 
-    // =========================
     // MENU
-    // =========================
     public static void menu() {
 
         System.debug('------ Employee Management ------');
