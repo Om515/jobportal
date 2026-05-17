@@ -1,9 +1,9 @@
 public class StudentContro {
 
-    // Object for form input
+    // Object for Form Input
     public Student__c stu {get; set;}
 
-    // List to display records
+    // List for Displaying Records
     public List<Student__c> studentList {get; set;}
 
     // Constructor
@@ -14,48 +14,56 @@ public class StudentContro {
         loadStudents();
     }
 
-    // Load all students
+    // Load All Students
     public void loadStudents() {
 
         studentList = [
+
             SELECT Id,
                    Name,
                    Student_Name__c,
                    Roll_Number__c,
-                   Email__c,
-                   Marks__c
+                   Class__c,
+                   Mobile_No__c
             FROM Student__c
             ORDER BY CreatedDate DESC
         ];
     }
 
-    // Save student
+    // Save Student Record
     public PageReference saveStudent() {
 
         insert stu;
 
+        // Clear Form
         stu = new Student__c();
 
+        // Reload Table
         loadStudents();
 
         return null;
     }
 
-    // Delete student
+    // Delete Student Record
     public PageReference deleteStudent() {
 
+        // Get Student Id
         String studentId = ApexPages.currentPage()
                         .getParameters()
                         .get('delId');
 
+        // Fetch Record
         Student__c s = [
+
             SELECT Id
             FROM Student__c
             WHERE Id = :studentId
         ];
 
+        // Delete Record
         delete s;
 
+        // Reload Table
         loadStudents();
 
         return null;
@@ -67,9 +75,9 @@ public class StudentContro {
 
 <apex:page controller="StudentContro">
 
-    <apex:form >
+    <apex:form>
 
-        <!-- FORM -->
+        <!-- STUDENT FORM -->
 
         <apex:pageBlock title="Student Record Management System">
 
@@ -77,27 +85,32 @@ public class StudentContro {
 
                 <!-- Student Name -->
 
-                <apex:inputText value="{!stu.Student_Name__c}"
+                <apex:inputText
+                    value="{!stu.Student_Name__c}"
                     label="Student Name"/>
 
                 <!-- Roll Number -->
 
-                <apex:inputText value="{!stu.Roll_Number__c}"
+                <apex:inputText
+                    value="{!stu.Roll_Number__c}"
                     label="Roll Number"/>
 
-                <!-- Email -->
+                <!-- Class -->
 
-                <apex:inputText value="{!stu.Email__c}"
-                    label="Email"/>
+                <apex:inputText
+                    value="{!stu.Class__c}"
+                    label="Class"/>
 
-                <!-- Marks -->
+                <!-- Mobile Number -->
 
-                <apex:inputText value="{!stu.Marks__c}"
-                    label="Marks"/>
+                <apex:inputText
+                    value="{!stu.Mobile_No__c}"
+                    label="Mobile Number"/>
 
                 <!-- Save Button -->
 
-                <apex:commandButton value="Save Student"
+                <apex:commandButton
+                    value="Save Student"
                     action="{!saveStudent}"
                     rerender="studentTable"/>
 
@@ -107,47 +120,57 @@ public class StudentContro {
 
         <br/>
 
-        <!-- STUDENT TABLE -->
+        <!-- STUDENT RECORD TABLE -->
 
-        <apex:pageBlock title="Student Records"
+        <apex:pageBlock
+            title="Student Records"
             id="studentTable">
 
-            <apex:pageBlockTable value="{!studentList}"
+            <apex:pageBlockTable
+                value="{!studentList}"
                 var="s">
 
                 <!-- Auto Number -->
 
-                <apex:column value="{!s.Name}"
-                    headerValue="Record ID"/>
+                <apex:column
+                    value="{!s.Name}"
+                    headerValue="Auto Number"/>
 
                 <!-- Student Name -->
 
-                <apex:column value="{!s.Student_Name__c}"
+                <apex:column
+                    value="{!s.Student_Name__c}"
                     headerValue="Student Name"/>
 
                 <!-- Roll Number -->
 
-                <apex:column value="{!s.Roll_Number__c}"
+                <apex:column
+                    value="{!s.Roll_Number__c}"
                     headerValue="Roll Number"/>
 
-                <!-- Email -->
+                <!-- Class -->
 
-                <apex:column value="{!s.Email__c}"
-                    headerValue="Email"/>
+                <apex:column
+                    value="{!s.Class__c}"
+                    headerValue="Class"/>
 
-                <!-- Marks -->
+                <!-- Mobile Number -->
 
-                <apex:column value="{!s.Marks__c}"
-                    headerValue="Marks"/>
+                <apex:column
+                    value="{!s.Mobile_No__c}"
+                    headerValue="Mobile Number"/>
 
-                <!-- Delete -->
+                <!-- Delete Button -->
 
                 <apex:column headerValue="Action">
 
-                    <apex:commandLink value="Delete"
-                        action="{!deleteStudent}">
+                    <apex:commandLink
+                        value="Delete"
+                        action="{!deleteStudent}"
+                        rerender="studentTable">
 
-                        <apex:param name="delId"
+                        <apex:param
+                            name="delId"
                             value="{!s.Id}"/>
 
                     </apex:commandLink>
@@ -162,5 +185,6 @@ public class StudentContro {
 
 </apex:page>
 
+auto number
 
 auto number
